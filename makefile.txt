@@ -1,0 +1,13 @@
+default: CGL_MPI
+ID = -I/software/FFTW/3.3.3-RH7/include
+LD = -L/software/FFTW/3.3.3-RH7/lib
+CGL_MPI.o: CGL_MPI.c $(HEADERS)
+	mpicc -std=c99 -c $(ID) CGL_MPI.c -o CGL_MPI.o
+
+CGL_MPI: CGL_MPI.o
+	mpicc -std=c99 -o CGL_MPI $(LD) CGL_MPI.o -L/usr/bin64 -lfftw3_mpi -lfftw3 -lmpi -lm
+
+clean:
+	-rm -f CGL_MPI.o
+	-rm -f CGL_MPI
+
